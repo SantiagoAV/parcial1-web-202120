@@ -7,8 +7,9 @@ const message = document.getElementById('message');
 
 enterButton.addEventListener('click', (event) => {
   //Implementar lógica del button submit
-  alert('Implementar lógica del button submit');
-  getresults(123);
+
+  searchedHeight = getresults(input.value);
+  
   event.preventDefault();
 });
 
@@ -19,8 +20,29 @@ enterButton.addEventListener('click', (event) => {
 async function getresults(heightRef) {
   const resp = await fetch(`api?input=${heightRef}`);
   const data = await resp.json();
-  console.log('data from back', data);
-  //printValues(data);
+
+  if( data.hasOwnProperty('message')){
+    alert(data.message);
+  }
+  else{
+    createTable(data);
+  }
+}
+
+function createTable(data){
+  const table = tbody;
+
+  data.forEach(value => {
+    const row = document.createElement('tr');
+
+    row.innerHTML = 
+    fila.innerHTML = `
+    <td>${value[0]}</td>
+    <td>${value[1]}</td>
+    `;
+
+    table.appendChild(row);
+  });
 }
 
 function removeAllChildNodes(parent) {
